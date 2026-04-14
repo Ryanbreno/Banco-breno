@@ -126,3 +126,28 @@ void busca_cpf(Cliente *clientes, char cpf[], int n){
         printf("Saldo: R$ %.2f\n", cliente->saldo);
     }
 }
+
+float balanco_total(Cliente *clientes, int n) {
+    float soma = 0.0;
+    for (int i = 0; i < n; i++) {
+        soma += clientes[i].saldo;
+    }
+    return soma;
+}
+
+void cliente_vip(Cliente *clientes, int n) {
+    if (n <= 0) {
+        printf("Nenhum cliente cadastrado no banco ainda!\n");
+        return;
+    }
+    int indice_vip = 0;
+    for (int i = 1; i < n; i++) {
+        if (clientes[i].saldo > clientes[indice_vip].saldo) {
+            indice_vip = i;
+        }
+    }
+    printf("CLIENTE VIP \n");
+    printf("Nome: %s\n", clientes[indice_vip].nome);
+    printf("CPF: %s\n", clientes[indice_vip].cpf);
+    printf("Saldo: R$ %.2f\n", clientes[indice_vip].saldo);
+}

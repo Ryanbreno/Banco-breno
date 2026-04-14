@@ -13,7 +13,7 @@ int main()
     char cpf[100];
     char CPF_TRANSFERIR[100];
 
-    while(opcao != 7)
+    while(opcao != 9)
     {
 
         printf("\n BEM-VINDO AO BANCO MASTER\n");
@@ -21,9 +21,11 @@ int main()
         printf("2 - Listar clientes\n");
         printf("3 - Depositar\n");
         printf("4 - Sacar\n");
-        printf("5- Transferir\n");
-        printf("6- Buscar por cpf\n");
-        printf("7- sair\n");
+        printf("5-  Transferir\n");
+        printf("6-  Buscar por cpf\n");
+        printf("7 - Ver balanço total\n");
+        printf("8 - Ver o cliente vip\n");
+        printf("9 - Sair\n");
         printf("digite: \n");
         scanf("%d", &opcao);
 
@@ -63,7 +65,23 @@ int main()
             printf("Qual o cpf deseja buscar? ");
             scanf("%s", cpf);
             busca_cpf(clientes, cpf, n);
+        case 7:
+            printf("O balanco total do Banco Master é: R$ %.2f\n", balanco_total(clientes, n));
+            break;
 
+        case 8:
+            cliente_vip(clientes, n);
+            break;
+            
+        case 9:
+            printf("Saindo do sistema... Ate logo!\n");
+            break;
+        
+        default:
+            if (opcao != 9) {
+                printf("Opcao invalida!\n");
+            }
+            break;
         }
 
     }

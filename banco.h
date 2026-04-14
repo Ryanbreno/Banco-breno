@@ -18,6 +18,7 @@ void depositar(Cliente *clientes, int n, char cpf[]);
 bool sacar(Cliente *clientes, int n, char cpf[]);
 void transferir(Cliente *clientes, float valor, char cpf_origem[], int n, char cpf_destino[]);
 void busca_cpf(Cliente *clientes, char cpf[], int n);
-
+float balanco_total(Cliente *clientes, int n);
+void cliente_vip(Cliente *clientes, int n);
 
 #endif
