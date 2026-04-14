@@ -2,13 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "banco.h"
 
-typedef struct Cliente
-{
-    char nome[100];
-    char cpf[100];
-    float saldo;
-} Cliente;
 
 bool cliente_existe(Cliente *clientes, char cpf[], int n)
 {
@@ -96,66 +91,38 @@ bool sacar(Cliente *clientes, int n, char cpf[])
     }
 }
 
-// void transferir(Cliente *clientes, Cliente *d, float valor, char cpf[], int n, char CPF_TRANSFERIR[]){
-//     float valor_transferir;
-//     for(int i = 0; i < n; i++){
-//         if(strcmp(CPF_TRANSFERIR
-//     }
-// }
+void transferir(Cliente *clientes, float valor, char cpf_origem[], int n, char cpf_destino[]){
+    Cliente *remetente = buscarCPF(clientes, n, cpf_origem);
+    if(remetente == NULL){
+        printf("Usuario não existe! ");
+    }
+    Cliente *destinatario = buscarCPF(clientes, n, cpf_destino);
+    if(destinatario == NULL){
+        printf("Usuario não existe! ");
+    }
 
-int main()
-{
+    float valor_transferencia;
+    printf("digite o valor que deseja enviar: ");
+    scanf("%f", &valor_transferencia);
+    if(remetente->saldo < valor_transferencia){
+        printf("VOCÊ É DURO! NAO TEM MONEY. ");
+    }
+    else{
+        remetente->saldo -= valor_transferencia;
+        destinatario->saldo += valor_transferencia;
+        printf("Transferencia de R$ %.2f realizada com sucesso!\n", valor_transferencia);
+        printf("Seu novo saldo: R$ %.2f\n", remetente->saldo);
+    }
+}
 
-    Cliente *clientes;
-    int opcao = 0, n;
-    float deposito;
-    char cpf[100];
-    char CPF_TRANSFERIR[100];
+void busca_cpf(Cliente *clientes, char cpf[], int n){
 
-    while(opcao != 7)
-    {
-
-        printf("\n BEM-VINDO AO BANCO MASTER\n");
-        printf("1 - Cadastrar cliente\n");
-        printf("2 - Listar clientes\n");
-        printf("3 - Depositar\n");
-        printf("4 - Sacar\n");
-        printf("5- Transferir\n");
-        printf("6- Buscar por cpf\n");
-        printf("7- sair\n");
-        printf("digite: \n");
-        scanf("%d", &opcao);
-
-        switch (opcao)
-        {
-        case 1:
-            printf("Quantos clientes deseja cadastrar? ");
-            scanf("%d", &n);
-            clientes = criar_Clientes(n);
-            for (int i = 0; i < n; i++)
-            {
-                printf("Cliente %d:\n", i + 1);
-                cadastrar_Cliente(clientes, i);
-            }
-            break;
-        case 2:
-            listar_clientes(clientes, n);
-            break;
-        case 3:
-            printf("Qual seu cpf? ");
-            scanf("%s", cpf);
-            depositar(clientes, n, cpf);
-            break;
-        case 4:
-            printf("Qual seu cpf? ");
-            scanf("%s", cpf);
-            sacar(clientes, n, cpf);
-            break;
-        case 5:
-            printf("Qual seu cpf? ");
-            scanf("%s", cpf);
-            printf("digite o cpf da pessoa que deseja transferir: ");
-            scanf("%s", CPF_TRANSFERIR);
-        }
+    Cliente *cliente = buscarCPF(clientes, n, cpf);
+    if(cliente == NULL){
+        printf("usuario invalido! ");
+    }
+    else{
+        printf("Nome: %s\n", cliente->nome);
+        printf("Saldo: R$ %.2f\n", cliente->saldo);
     }
 }
