@@ -3,13 +3,14 @@
 #include <string.h>
 #include <stdbool.h>
 #include "banco.h"
+#include "lista.h"
 
 int main()
 {
 
-    Cliente *clientes;
+    Lista* clientes;
+    inicializar_lista(clientes);
     int opcao = 0, n;
-    float deposito;
     char cpf[100];
     char CPF_TRANSFERIR[100];
 
@@ -32,46 +33,43 @@ int main()
         switch (opcao)
         {
         case 1:
-            printf("Quantos clientes deseja cadastrar? ");
-            scanf("%d", &n);
-            clientes = criar_Clientes(n);
-            for (int i = 0; i < n; i++)
-            {
-                printf("Cliente %d:\n", i + 1);
-                cadastrar_Cliente(clientes, i);
-            }
+            printf("Cadastro de novo cliente: \n");
+            Cliente novo_cliente;
+            cadastrar_Cliente(&novo_cliente);
+            adicionar_cliente(clientes, novo_cliente);
+
             break;
         case 2:
-            listar_clientes(clientes, n);
+            imprimir_lista(clientes);
             break;
         case 3:
             printf("Qual seu cpf? ");
             scanf("%s", cpf);
-            depositar(clientes, n, cpf);
+            depositar(clientes, cpf);
             break;
         case 4:
             printf("Qual seu cpf? ");
             scanf("%s", cpf);
-            sacar(clientes, n, cpf);
+            sacar(clientes, cpf);
             break;
-        case 5:
-            printf("Qual seu cpf? ");
-            scanf("%s", cpf);
-            printf("digite o cpf da pessoa que deseja transferir: ");
-            scanf("%s", CPF_TRANSFERIR);
-            transferir(clientes, 0, cpf, n, CPF_TRANSFERIR);
+        // case 5:
+        //     printf("Qual seu cpf? ");
+        //     scanf("%s", cpf);
+        //     printf("digite o cpf da pessoa que deseja transferir: ");
+        //     scanf("%s", CPF_TRANSFERIR);
+        //     transferir(clientes, 0, cpf, n, CPF_TRANSFERIR);
 
-        case 6:
-            printf("Qual o cpf deseja buscar? ");
-            scanf("%s", cpf);
-            busca_cpf(clientes, cpf, n);
-        case 7:
-            printf("O balanco total do Banco Master é: R$ %.2f\n", balanco_total(clientes, n));
-            break;
+        // case 6:
+        //     printf("Qual o cpf deseja buscar? ");
+        //     scanf("%s", cpf);
+        //     busca_cpf(clientes, cpf, n);
+        // case 7:
+        //     printf("O balanco total do Banco Master é: R$ %.2f\n", balanco_total(clientes, n));
+        //     break;
 
-        case 8:
-            cliente_vip(clientes, n);
-            break;
+        // case 8:
+        //     cliente_vip(clientes, n);
+        //     break;
             
         case 9:
             printf("Saindo do sistema... Ate logo!\n");

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "banco.h"
+#include "lista.h"
 
 
 bool cliente_existe(Cliente *clientes, char cpf[], int n)
@@ -35,14 +36,14 @@ Cliente *criar_Clientes(int n)
     return clientes;
 }
 
-void cadastrar_Cliente(Cliente *clientes, int n)
+void cadastrar_Cliente(Cliente* novo_cliente)
 {
     printf("digite seu nome: ");
-    scanf("%s", clientes[n].nome);
+    scanf("%s", novo_cliente->nome);
     printf("Digite seu cpf: ");
-    scanf("%s", clientes[n].cpf);
+    scanf("%s", novo_cliente->cpf);
     printf("Digite o teu saldo: ");
-    scanf("%f", &clientes[n].saldo);
+    scanf("%f", &novo_cliente->saldo);
 }
 
 void listar_clientes(Cliente *clientes, int n)
@@ -53,41 +54,40 @@ void listar_clientes(Cliente *clientes, int n)
     }
 }
 
-void depositar(Cliente *clientes, int n, char cpf[])
+void depositar(Lista* clientes, char cpf[])
 {
+    No* no_cliente = buscar_cliente(clientes, cpf);
     float valor;
-    for (int i = 0; i < n; i++)
+   
+    if (strcmp(cpf, no_cliente->cliente.cpf) == 0)
     {
-        if (strcmp(cpf, clientes[i].cpf) == 0)
-        {
-            printf("qual valor deseja depositar? ");
-            scanf("%f", &valor);
-            clientes[i].saldo += valor;
-        }
+        printf("qual valor deseja depositar? ");
+        scanf("%f", &valor);
+        no_cliente->cliente.saldo += valor;
     }
 }
 
-bool sacar(Cliente *clientes, int n, char cpf[])
+void sacar(Lista* clientes, char cpf[])
 {
     float valor_saque;
-    Cliente *cliente = buscarCPF(clientes, n, cpf);
-    if (cliente == NULL)
+    No* no_cliente = buscar_cliente(clientes, cpf);
+    if (no_cliente == NULL)
     {
         printf("Cliente nao existe!\n");
-        return false;
+        return;
     }
 
     printf("Qual valor deseja sacar?");
     scanf("%f", &valor_saque);
 
-    if(cliente->saldo < valor_saque){
+    if(no_cliente->cliente.saldo < valor_saque){
         printf("VOCÊ É DURO E NÃO TEM DINHEIRO!\n");
-        return false;
+        return;
     }
     else{
-        cliente->saldo -= valor_saque;
-        printf("Saque realizado! Novo saldo: R$ %.2f\n", cliente->saldo);
-        return true;
+        no_cliente->cliente.saldo -= valor_saque;
+        printf("Saque realizado! Novo saldo: R$ %.2f\n", no_cliente->cliente.saldo);
+        return;
     }
 }
 
