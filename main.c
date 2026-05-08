@@ -42,11 +42,11 @@ int main()
         case 2:
             imprimir_lista(clientes);
             break;
-        // case 3:
-        //     printf("Qual seu cpf? ");
-        //     scanf("%s", cpf);
-        //     depositar(clientes, n, cpf);
-        //     break;
+        case 3:
+            printf("Qual seu cpf? ");
+            scanf("%s", cpf);
+            depositar(clientes, cpf);
+            break;
         // case 4:
         //     printf("Qual seu cpf? ");
         //     scanf("%s", cpf);

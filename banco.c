@@ -54,17 +54,16 @@ void listar_clientes(Cliente *clientes, int n)
     }
 }
 
-void depositar(Cliente *clientes, int n, char cpf[])
+void depositar(Lista* clientes, char cpf[])
 {
+    No* no_cliente = buscar_cliente(clientes, cpf);
     float valor;
-    for (int i = 0; i < n; i++)
+   
+    if (strcmp(cpf, no_cliente->cliente.cpf) == 0)
     {
-        if (strcmp(cpf, clientes[i].cpf) == 0)
-        {
-            printf("qual valor deseja depositar? ");
-            scanf("%f", &valor);
-            clientes[i].saldo += valor;
-        }
+        printf("qual valor deseja depositar? ");
+        scanf("%f", &valor);
+        no_cliente->cliente.saldo += valor;
     }
 }
 
