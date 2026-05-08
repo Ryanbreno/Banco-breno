@@ -39,9 +39,9 @@ int main()
             adicionar_cliente(clientes, novo_cliente);
 
             break;
-        // case 2:
-        //     listar_clientes(clientes, n);
-        //     break;
+        case 2:
+            imprimir_lista(clientes);
+            break;
         // case 3:
         //     printf("Qual seu cpf? ");
         //     scanf("%s", cpf);
