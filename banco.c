@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "banco.h"
+#include "lista.h"
 
 
 bool cliente_existe(Cliente *clientes, char cpf[], int n)
@@ -35,14 +36,14 @@ Cliente *criar_Clientes(int n)
     return clientes;
 }
 
-void cadastrar_Cliente(Cliente *clientes, int n)
+void cadastrar_Cliente(Cliente* novo_cliente)
 {
     printf("digite seu nome: ");
-    scanf("%s", clientes[n].nome);
+    scanf("%s", novo_cliente->nome);
     printf("Digite seu cpf: ");
-    scanf("%s", clientes[n].cpf);
+    scanf("%s", novo_cliente->cpf);
     printf("Digite o teu saldo: ");
-    scanf("%f", &clientes[n].saldo);
+    scanf("%f", &novo_cliente->saldo);
 }
 
 void listar_clientes(Cliente *clientes, int n)
