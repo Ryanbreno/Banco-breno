@@ -67,27 +67,27 @@ void depositar(Lista* clientes, char cpf[])
     }
 }
 
-bool sacar(Cliente *clientes, int n, char cpf[])
+void sacar(Lista* clientes, char cpf[])
 {
     float valor_saque;
-    Cliente *cliente = buscarCPF(clientes, n, cpf);
-    if (cliente == NULL)
+    No* no_cliente = buscar_cliente(clientes, cpf);
+    if (no_cliente == NULL)
     {
         printf("Cliente nao existe!\n");
-        return false;
+        return;
     }
 
     printf("Qual valor deseja sacar?");
     scanf("%f", &valor_saque);
 
-    if(cliente->saldo < valor_saque){
+    if(no_cliente->cliente.saldo < valor_saque){
         printf("VOCÊ É DURO E NÃO TEM DINHEIRO!\n");
-        return false;
+        return;
     }
     else{
-        cliente->saldo -= valor_saque;
-        printf("Saque realizado! Novo saldo: R$ %.2f\n", cliente->saldo);
-        return true;
+        no_cliente->cliente.saldo -= valor_saque;
+        printf("Saque realizado! Novo saldo: R$ %.2f\n", no_cliente->cliente.saldo);
+        return;
     }
 }
 

@@ -47,11 +47,11 @@ int main()
             scanf("%s", cpf);
             depositar(clientes, cpf);
             break;
-        // case 4:
-        //     printf("Qual seu cpf? ");
-        //     scanf("%s", cpf);
-        //     sacar(clientes, n, cpf);
-        //     break;
+        case 4:
+            printf("Qual seu cpf? ");
+            scanf("%s", cpf);
+            sacar(clientes, cpf);
+            break;
         // case 5:
         //     printf("Qual seu cpf? ");
         //     scanf("%s", cpf);
