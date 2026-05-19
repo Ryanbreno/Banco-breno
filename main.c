@@ -8,13 +8,15 @@
 int main()
 {
 
-    Lista* clientes;
-    inicializar_lista(clientes);
+    Lista clientes;
+    inicializar_lista(&clientes);
     int opcao = 0, n;
     char cpf[100];
+    char cpf_destinatario[100], cpf_remetente[100];
+
     char CPF_TRANSFERIR[100];
 
-    while(opcao != 9)
+    while (opcao != 9)
     {
 
         printf("\n BEM-VINDO AO BANCO MASTER\n");
@@ -36,51 +38,42 @@ int main()
             printf("Cadastro de novo cliente: \n");
             Cliente novo_cliente;
             cadastrar_Cliente(&novo_cliente);
-            adicionar_cliente(clientes, novo_cliente);
+            adicionar_cliente(&clientes, novo_cliente);
 
             break;
         case 2:
-            imprimir_lista(clientes);
+            imprimir_lista(&clientes);
             break;
         case 3:
             printf("Qual seu cpf? ");
             scanf("%s", cpf);
-            depositar(clientes, cpf);
+            depositar(&clientes, cpf);
             break;
         case 4:
             printf("Qual seu cpf? ");
             scanf("%s", cpf);
-            sacar(clientes, cpf);
+            sacar(&clientes, cpf);
             break;
-        // case 5:
-        //     printf("Qual seu cpf? ");
-        //     scanf("%s", cpf);
-        //     printf("digite o cpf da pessoa que deseja transferir: ");
-        //     scanf("%s", CPF_TRANSFERIR);
-        //     transferir(clientes, 0, cpf, n, CPF_TRANSFERIR);
+        case 5:
+            printf("Qual seu CPF: ");
+            scanf("%s", cpf_destinatario);
+            printf("Quem vai receber (CPF): ");
+            scanf("%s", cpf_remetente);
 
-        // case 6:
-        //     printf("Qual o cpf deseja buscar? ");
-        //     scanf("%s", cpf);
-        //     busca_cpf(clientes, cpf, n);
-        // case 7:
-        //     printf("O balanco total do Banco Master é: R$ %.2f\n", balanco_total(clientes, n));
-        //     break;
-
-        // case 8:
-        //     cliente_vip(clientes, n);
-        //     break;
-            
+            transferir_cliente(&clientes, cpf_remetente, cpf_destinatario);
+            break;
+        case 6:
+            busca_cliente(&clientes);
+            break;
+        case 7:
+            somageral_cliente(&clientes);
+            break;
+        case 8:
+            clientevip_cliente(&clientes);
+            break;
         case 9:
             printf("Saindo do sistema... Ate logo!\n");
             break;
-        
-        default:
-            if (opcao != 9) {
-                printf("Opcao invalida!\n");
-            }
-            break;
         }
-
     }
 }
