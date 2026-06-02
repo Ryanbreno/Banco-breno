@@ -151,3 +151,5 @@ void cliente_vip(Cliente *clientes, int n) {
     printf("CPF: %s\n", clientes[indice_vip].cpf);
     printf("Saldo: R$ %.2f\n", clientes[indice_vip].saldo);
 }
+
+
