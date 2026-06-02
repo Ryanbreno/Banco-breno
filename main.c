@@ -4,19 +4,20 @@
 #include <stdbool.h>
 #include "banco.h"
 #include "lista.h"
+#include "fila.h"
 
 int main()
 {
 
     Lista clientes;
     inicializar_lista(&clientes);
-    int opcao = 0, n;
+    Fila fila_atendimento;
+    inicializar_fila(&fila_atendimento);
+    int opcao = 0;
     char cpf[100];
     char cpf_destinatario[100], cpf_remetente[100];
 
-    char CPF_TRANSFERIR[100];
-
-    while (opcao != 9)
+    while (opcao != 12)
     {
 
         printf("\n BEM-VINDO AO BANCO MASTER\n");
@@ -28,7 +29,11 @@ int main()
         printf("6-  Buscar por cpf\n");
         printf("7 - Ver balanço total\n");
         printf("8 - Ver o cliente vip\n");
-        printf("9 - Sair\n");
+        printf("--- ATENDIMENTO (FILA) ---\n");
+        printf("9 - Entrar na fila de atendimento\n");
+        printf("10 - Atender proximo cliente da fila\n");
+        printf("11 - Mostrar clientes aguardando na fila\n");
+        printf("12 - Sair\n");
         printf("digite: \n");
         scanf("%d", &opcao);
 
@@ -41,19 +46,23 @@ int main()
             adicionar_cliente(&clientes, novo_cliente);
 
             break;
+
         case 2:
             imprimir_lista(&clientes);
             break;
+
         case 3:
             printf("Qual seu cpf? ");
             scanf("%s", cpf);
             depositar(&clientes, cpf);
             break;
+
         case 4:
             printf("Qual seu cpf? ");
             scanf("%s", cpf);
             sacar(&clientes, cpf);
             break;
+
         case 5:
             printf("Qual seu CPF: ");
             scanf("%s", cpf_destinatario);
@@ -62,18 +71,49 @@ int main()
 
             transferir_cliente(&clientes, cpf_remetente, cpf_destinatario);
             break;
+
         case 6:
             busca_cliente(&clientes);
             break;
+
         case 7:
             somageral_cliente(&clientes);
             break;
+
         case 8:
             clientevip_cliente(&clientes);
             break;
+
         case 9:
+            printf("Qual o CPF do cliente que chegou na agencia? ");
+            scanf("%s", cpf);
+            
+            No* cliente_encontrado = buscar_cliente(&clientes, cpf); 
+            
+            if (cliente_encontrado != NULL) {
+                enfileirar(&fila_atendimento, cliente_encontrado->cliente);
+                printf("O cliente foi inserido no final da fila de espera.\n");
+            } else {
+                printf("Cliente nao encontrado. E necessario abrir a conta primeiro!\n");
+            }
+            break;
+
+        case 10:
+            desenfileirar(&fila_atendimento);
+            break;
+        case 11:
+            printf("FILA DE ESPERA");
+            imprimir_fila(&fila_atendimento);
+            break;
+        case 12:
             printf("Saindo do sistema... Ate logo!\n");
             break;
+            
+        default:
+            printf("Opcao invalida!\n");
+            break;
+            
         }
+    
     }
 }
